@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<link rel="stylesheet" href="css/color.css">
 </head>
 <body>
-    <h1>404 error found here  </h1>
+    {{!-- <h1>Finally it is the dynamic page of the hbs</h1>  --}}
+
+{{>header}}
+
+   <h1>{{HeadingName}}</h1> 
+      {{>foot}}
 </body>
 </html>

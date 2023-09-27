@@ -1,63 +1,56 @@
-const express=require('express');
-const app=express();
-const hbs=require('hbs');
-const path =require ('path')
+const express = require("express");
+const app = express();
+const hbs = require("hbs");
+const path = require("path");
 
-const statepath=path.join(__dirname,'../public');
 
-app.use(express.static(statepath))
+const templatepath=path.join(__dirname,'../templates/views') 
+const partialpath=path.join(__dirname,'../templates/partials') 
+
 
 
 
 //TO SET THE VIEW ENGINE file name
-// app.set('view engine','hbs');
-// app.set("views",templatepath)
-// hbs.registerPartial(partialpath)
+app.set("view engine", "hbs");
+app.set('views',templatepath);
+hbs.registerPartials(partialpath)
 
-// app.get('',(req,res)=>{
-//     res.render('index',{
-//         cssfloat:'Social Media'
+app.get("", (req, res) => {
+  res.render("index", {
+    cssfloat: "Social Media",
+  });
+});
 
+app.get('/about',(req,res)=>{
+  res.render("about");
+})
 
-
-
-//     })
-// })
-
-
-
-
-// app.get('/about',(req,res)=>{
-//     res.send('This is the about page')
-// })
-app.get('/contact',(req,res)=>{
-    res.send('This is the conjtact page')
+app.get('/learn',(req,res)=>{
+  res.render('learn')
 })
 
 
+//FOR MORE DETAILED ERROR HANDLING
+app.get('/learn/*',(req,res)=>{
+  res.render('404',{
+    ErrorStatement:'404 inside learn  page not found'
+  })
+})
 
-
-
-
-
-//SET DEFAULT ERROR PAGE
-// app.get('*',(req,res)=>{
-//     res.send('<h1>502 Bad request server not found</h1>')
-// })
-// app.listen(process.env.PORT | 3300,()=>{console.log(process.env.PORT)})
- 
-
-
-app.listen(7000,()=>{
-    console.log('the port is listening at 7000');
+app.get('/about/*',(req,res)=>{
+  res.render('404',{
+    ErrorStatement:'404 inside about  page not found'
+  })
 })
 
 
+app.get('*',(req,res)=>{
+  res.render('404',{
+    ErrorStatement:'404 page not found'
+  })
+})
 
 
-
-
-
-
-
-
+app.listen(7000, () => {
+  console.log("the port is listening at 7000");
+});
